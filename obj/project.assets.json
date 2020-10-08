@@ -10845,6 +10845,7 @@
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.8",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.8",
       "Microsoft.Extensions.DependencyInjection >= 3.1.8",
+      "Microsoft.Extensions.Logging.Console >= 3.1.8",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4",
       "SysDomain >= 1.0.0",
       "SysUtility >= 1.0.0"
@@ -10909,6 +10910,10 @@
             "version": "[3.1.8, )"
           },
           "Microsoft.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[3.1.8, )"
+          },
+          "Microsoft.Extensions.Logging.Console": {
             "target": "Package",
             "version": "[3.1.8, )"
           },

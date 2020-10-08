@@ -103,6 +103,7 @@ namespace WeghingSystemCore.Controllers
             {
                 if (!ModelState.IsValid) return InvalidModelStateResult();
                 if (!validateEntity(model)) return InvalidModelStateResult();
+                if (repository.Get().Count(a => a.BalingStationId.Equals(model.BalingStationId)) == 0) return NotFound(Constants.Messages.NotFoundEntity);
                 return Accepted(repository.Update(model));
 
             }

@@ -81,12 +81,10 @@ namespace WeghingSystemCore.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var jsonModelState = ModelState.ToJson();
-                    if (General.IsDevelopment) logger.LogDebug(jsonModelState);
-                    return UnprocessableEntity(jsonModelState);
-                }
+                if (!ModelState.IsValid) return InvalidModelStateResult();
+                if (!validateEntity(model)) return InvalidModelStateResult();
+                if (repository.Get().Count(a => a.ProductId.Equals(model.ProductId)) == 0) return NotFound(Constants.Messages.NotFoundEntity);
+
                 return Accepted(repository.Update(model));
 
             }

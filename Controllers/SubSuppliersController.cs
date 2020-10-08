@@ -84,6 +84,8 @@ namespace WeghingSystemCore.Controllers
             {
                 if (!ModelState.IsValid) return InvalidModelStateResult();
                 if (!validateEntity(model)) return InvalidModelStateResult();
+                if (repository.Get().Count(a => a.SubSupplierId.Equals(model.SubSupplierId)) == 0) return NotFound(Constants.Messages.NotFoundEntity);
+
                 return Accepted(repository.Update(model));
 
             }
