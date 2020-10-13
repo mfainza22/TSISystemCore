@@ -16,23 +16,24 @@ namespace WeghingSystemCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RawMaterialsController : ControllerBase
+    public class CalibrationsController : ControllerBase
     {
-        private readonly IRawMaterialRepository repository;
-        private readonly ILogger<RawMaterialsController> logger;
-        public RawMaterialsController(ILogger<RawMaterialsController> logger, IRawMaterialRepository repository)
+        private readonly ICalibrationRepository repository;
+        private readonly ILogger<CalibrationsController> logger;
+        public CalibrationsController(ILogger<CalibrationsController> logger, ICalibrationRepository repository)
         {
             this.repository = repository;
             this.logger = logger;
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] RawMaterial parameters = null)
-        {
+        public IActionResult Get([FromQuery] Calibration parameters = null)
+        { 
             try
-            {
+            { 
                 var model = repository.Get(parameters);
-                return Ok(model);
+                if (model == null) return NotFound(Constants.Messages.NotFoundEntity);
+                return Ok(model.ToList().Select(a => { a.CalibrationTypeDesc = (a.CalibrationType?.CalibrationTypeDesc); a.CalibrationType = null; return a; } ));
             }
             catch (Exception ex)
             {
@@ -40,6 +41,7 @@ namespace WeghingSystemCore.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.FetchError);
             }
         }
+
 
         [HttpGet("{id}")]
         public IActionResult Get(long id)
@@ -58,8 +60,17 @@ namespace WeghingSystemCore.Controllers
 
         }
 
+
+        [Route("{id}/lastlog")]
+        public IActionResult LastLog(long id)
+        {
+            var model = repository.GetLastLog(id);
+            if (model == null) return NotFound(Constants.Messages.NotFoundEntity);
+            return Ok(model);
+        }
+       
         [HttpPost]
-        public IActionResult Post([FromBody] RawMaterial model)
+        public IActionResult Post([FromBody] Calibration model)
         {
             try
             {
@@ -72,21 +83,18 @@ namespace WeghingSystemCore.Controllers
                 logger.LogError(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.CreateError);
             }
-
-
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(StatusCodes), StatusCodes.Status400BadRequest)]
-        public IActionResult Put([FromBody] RawMaterial model)
+        public IActionResult Put([FromBody] Calibration model)
         {
             try
             {
                 if (!ModelState.IsValid) return InvalidModelStateResult();
                 if (!validateEntity(model)) return InvalidModelStateResult();
-                if (repository.Get().Count(a => a.RawMaterialId.Equals(model.RawMaterialId)) == 0) return NotFound(Constants.Messages.NotFoundEntity);
-
+                if (repository.Get().Count(a => a.CalibrationId.Equals(model.CalibrationId)) == 0) return NotFound(Constants.Messages.NotFoundEntity);
                 return Accepted(repository.Update(model));
 
             }
@@ -98,7 +106,6 @@ namespace WeghingSystemCore.Controllers
 
         }
 
-
         [HttpDelete]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(StatusCodes), StatusCodes.Status400BadRequest)]
@@ -107,14 +114,11 @@ namespace WeghingSystemCore.Controllers
             try
             {
                 var model = repository.GetById(id);
-
                 if (model == null)
                 {
                     return BadRequest(Constants.Messages.NotFoundEntity);
                 }
-
                 repository.Delete(model);
-
                 return Accepted(Constants.Messages.DeleteSucess(1));
             }
             catch (Exception ex)
@@ -123,7 +127,6 @@ namespace WeghingSystemCore.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.DeleteError);
             }
         }
-
 
         [HttpDelete("{name}/{ids}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
@@ -147,46 +150,17 @@ namespace WeghingSystemCore.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("[action]")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(StatusCodes), StatusCodes.Status422UnprocessableEntity)]
-        public IActionResult ValidateCode([FromBody] RawMaterial model)
+        private bool validateEntity(Calibration model)
         {
-            if (model == null) return NotFound();
-            if (General.IsDevelopment) logger.LogDebug(ModelState.ToJson());
-            var result = repository.ValidateCode(model);
-            if (result) return Accepted(true);
-            else return UnprocessableEntity(Constants.Messages.EntityExists("Name"));
-        }
-
-        [HttpPost]
-        [Route("[action]")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(StatusCodes), StatusCodes.Status422UnprocessableEntity)]
-        public IActionResult ValidateName([FromBody] RawMaterial model)
-        {
-            if (model == null) return NotFound();
-            if (General.IsDevelopment) logger.LogDebug(ModelState.ToJson());
-            var result = repository.ValidateName(model);
-            if (result) return Accepted(true);
-            else return UnprocessableEntity(Constants.Messages.EntityExists("Name"));
-        }
-
-        private bool validateEntity(RawMaterial model)
-        {
-            var validCode = repository.ValidateCode(model);
-            if (!validCode) ModelState.AddModelError(nameof(RawMaterial.RawMaterialCode), Constants.Messages.EntityExists("Code"));
-            var validName = repository.ValidateName(model);
-            if (!validName) ModelState.AddModelError(nameof(RawMaterial.RawMaterialDesc), Constants.Messages.EntityExists("Name"));
             return (ModelState.ErrorCount == 0);
         }
-
+       
         private IActionResult InvalidModelStateResult()
         {
             var jsonModelState = ModelState.ToJson();
             if (General.IsDevelopment) logger.LogDebug(jsonModelState);
             return UnprocessableEntity(jsonModelState);
         }
+
     }
 }

@@ -380,5 +380,4 @@ D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp
 D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp3.1\WeghingSystemCore.pdb
 D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp3.1\WeghingSystemCore.genruntimeconfig.cache
 D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp3.1\WeghingSystemCore.csproj.CoreCompileInputs.cache
-D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp3.1\WeghingSystemCore.MvcApplicationPartsAssemblyInfo.cs
 D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp3.1\WeghingSystemCore.MvcApplicationPartsAssemblyInfo.cache

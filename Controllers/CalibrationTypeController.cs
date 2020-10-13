@@ -16,22 +16,22 @@ namespace WeghingSystemCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RawMaterialsController : ControllerBase
+    public class CalibrationTypesController : ControllerBase
     {
-        private readonly IRawMaterialRepository repository;
-        private readonly ILogger<RawMaterialsController> logger;
-        public RawMaterialsController(ILogger<RawMaterialsController> logger, IRawMaterialRepository repository)
+        private readonly ICalibrationTypeRepository repository;
+        private readonly ILogger<CalibrationTypesController> logger;
+        public CalibrationTypesController(ILogger<CalibrationTypesController> logger, ICalibrationTypeRepository repository)
         {
             this.repository = repository;
             this.logger = logger;
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] RawMaterial parameters = null)
+        public IActionResult Get()
         {
             try
             {
-                var model = repository.Get(parameters);
+                var model = repository.Get();
                 return Ok(model);
             }
             catch (Exception ex)
@@ -59,7 +59,7 @@ namespace WeghingSystemCore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] RawMaterial model)
+        public IActionResult Post([FromBody] CalibrationType model)
         {
             try
             {
@@ -79,14 +79,13 @@ namespace WeghingSystemCore.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(StatusCodes), StatusCodes.Status400BadRequest)]
-        public IActionResult Put([FromBody] RawMaterial model)
+        public IActionResult Put([FromBody] CalibrationType model)
         {
             try
             {
                 if (!ModelState.IsValid) return InvalidModelStateResult();
                 if (!validateEntity(model)) return InvalidModelStateResult();
-                if (repository.Get().Count(a => a.RawMaterialId.Equals(model.RawMaterialId)) == 0) return NotFound(Constants.Messages.NotFoundEntity);
-
+                if (repository.Get().Count(a => a.CalibrationTypeId.Equals(model.CalibrationTypeId)) == 0) return NotFound(Constants.Messages.NotFoundEntity);
                 return Accepted(repository.Update(model));
 
             }
@@ -147,46 +146,40 @@ namespace WeghingSystemCore.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("[action]")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(StatusCodes), StatusCodes.Status422UnprocessableEntity)]
-        public IActionResult ValidateCode([FromBody] RawMaterial model)
-        {
-            if (model == null) return NotFound();
-            if (General.IsDevelopment) logger.LogDebug(ModelState.ToJson());
-            var result = repository.ValidateCode(model);
-            if (result) return Accepted(true);
-            else return UnprocessableEntity(Constants.Messages.EntityExists("Name"));
-        }
+      
 
         [HttpPost]
         [Route("[action]")]
         [ProducesResponseType(typeof(string), StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(StatusCodes), StatusCodes.Status422UnprocessableEntity)]
-        public IActionResult ValidateName([FromBody] RawMaterial model)
+        public IActionResult ValidateName([FromBody] CalibrationType model)
         {
             if (model == null) return NotFound();
             if (General.IsDevelopment) logger.LogDebug(ModelState.ToJson());
-            var result = repository.ValidateName(model);
-            if (result) return Accepted(true);
-            else return UnprocessableEntity(Constants.Messages.EntityExists("Name"));
+            var existing = repository.Get().FirstOrDefault(a => a.CalibrationTypeDesc == model.CalibrationTypeDesc);
+            if (existing == null) return Accepted(true);
+            if (existing.CalibrationTypeId != model.CalibrationTypeId)
+            {
+                return UnprocessableEntity(Constants.Messages.EntityExists("Description"));
+            }
+            else
+            {
+                return Accepted(true);
+            }
         }
 
-        private bool validateEntity(RawMaterial model)
+        private bool validateEntity(CalibrationType model)
         {
-            var validCode = repository.ValidateCode(model);
-            if (!validCode) ModelState.AddModelError(nameof(RawMaterial.RawMaterialCode), Constants.Messages.EntityExists("Code"));
-            var validName = repository.ValidateName(model);
-            if (!validName) ModelState.AddModelError(nameof(RawMaterial.RawMaterialDesc), Constants.Messages.EntityExists("Name"));
+           var validName = repository.ValidateName(model);
+            if (!validName) ModelState.AddModelError(nameof(CalibrationType.CalibrationTypeDesc), Constants.Messages.EntityExists("Name"));
             return (ModelState.ErrorCount == 0);
         }
-
         private IActionResult InvalidModelStateResult()
         {
             var jsonModelState = ModelState.ToJson();
             if (General.IsDevelopment) logger.LogDebug(jsonModelState);
             return UnprocessableEntity(jsonModelState);
         }
+
     }
 }

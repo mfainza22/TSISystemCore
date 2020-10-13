@@ -66,7 +66,7 @@ namespace WeghingSystemCore.Controllers
             try
             {
                 var model = repository.GetSelected();
-                if (model == null) return NotFound(Constants.Messages.NotFoundEntity);
+                if (model == null) return NotFound("No Baling Station is selected");
                 return Ok(model);
             }
             catch (Exception ex)
