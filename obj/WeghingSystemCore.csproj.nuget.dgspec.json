@@ -18,14 +18,14 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netstandard2.0"
+          "netstandard2.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netstandard2.0": {
+          "netstandard2.1": {
             "projectReferences": {
               "D:\\dir\\tsi\\UPPC\\Phase 4\\WeghingSystemCore\\SysUtility\\SysUtility.csproj": {
                 "projectPath": "D:\\dir\\tsi\\UPPC\\Phase 4\\WeghingSystemCore\\SysUtility\\SysUtility.csproj"
@@ -40,21 +40,23 @@
         }
       },
       "frameworks": {
-        "netstandard2.0": {
+        "netstandard2.1": {
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.1.8, )"
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.8, )"
-            },
-            "NETStandard.Library": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.0.3, )",
-              "autoReferenced": true
+              "version": "[5.0.0, )"
             }
           },
           "imports": [
@@ -67,6 +69,11 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
@@ -135,6 +142,10 @@
               "target": "Package",
               "version": "[4.7.0, )"
             },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.2, )"
+            },
             "System.Management": {
               "target": "Package",
               "version": "[4.7.0, )"
@@ -179,9 +190,6 @@
             "projectReferences": {
               "D:\\dir\\tsi\\UPPC\\Phase 4\\WeghingSystemCore\\SysDomain\\SysDomain.csproj": {
                 "projectPath": "D:\\dir\\tsi\\UPPC\\Phase 4\\WeghingSystemCore\\SysDomain\\SysDomain.csproj"
-              },
-              "D:\\dir\\tsi\\UPPC\\Phase 4\\WeghingSystemCore\\SysUtility\\SysUtility.csproj": {
-                "projectPath": "D:\\dir\\tsi\\UPPC\\Phase 4\\WeghingSystemCore\\SysUtility\\SysUtility.csproj"
               }
             }
           }
@@ -199,19 +207,35 @@
               "target": "Package",
               "version": "[2.2.0, )"
             },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[3.1.8, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.8, )"
+              "version": "[5.0.0, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[3.1.8, )"
+              "version": "[5.0.0, )"
             },
             "Microsoft.Extensions.Logging.Console": {
               "target": "Package",
@@ -220,6 +244,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.4, )"
+            },
+            "TimeZoneConverter": {
+              "target": "Package",
+              "version": "[3.3.0, )"
             }
           },
           "imports": [

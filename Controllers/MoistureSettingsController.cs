@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SysDomain.IRepositories;
 using SysDomain.Models;
+using SysUtility;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,15 +19,24 @@ namespace WeghingSystemCore.Controllers
         }
 
         [HttpGet]
-        public IQueryable<MoistureSettings> Get()
+        public IActionResult Get()
         {
-            return repository.Get();
+            var result = repository.Get();
+            if (result == null)
+            {
+                return NotFound(Constants.ErrorMessages.NotFoundEntity);
+            }
+            else
+            {
+
+                return Ok(repository.Get());
+            }
         }
 
         [HttpGet("{id}")]
-        public MoistureSettings Get(long id)
+        public IActionResult Get(long id)
         {
-            return repository.GetById(id);
+            return Ok(repository.GetById(id));
         }
 
         [HttpPost]
@@ -40,9 +46,9 @@ namespace WeghingSystemCore.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put( [FromBody] MoistureSettings model)
+        public IActionResult Put([FromBody] MoistureSettings model)
         {
-            repository.Update(model);
+            return Ok(repository.Update(model));
         }
 
         [HttpDelete("{id}")]
@@ -52,5 +58,13 @@ namespace WeghingSystemCore.Controllers
             repository.Delete(model);
         }
 
+
+        [HttpGet]
+        [Route("GetCorrected")]
+        public IActionResult GetCorrected([FromQuery] decimal mc, [FromQuery] decimal wt)
+        {
+            var result = repository.GetCorrectedMC(mc, wt);
+            return Ok(result);
+        }
     }
 }

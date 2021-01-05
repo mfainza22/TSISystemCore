@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SysDomain.IRepositories;
 using SysDomain.Models;
+using System;
+using System.Linq;
 using SysUtility;
 using SysUtility.Extensions;
 
@@ -27,17 +25,17 @@ namespace WeghingSystemCore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] BusinessLicense parameters = null)
         {
             try
             {
-              var model = repository.Get();
+                var model = repository.Get(parameters);
                 return Ok(model);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.FetchError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
 
@@ -47,13 +45,13 @@ namespace WeghingSystemCore.Controllers
             try
             {
                 var model = repository.GetById(id);
-                if (model == null) return NotFound(Constants.Messages.NotFoundEntity);
+                if (model == null) return NotFound(Constants.ErrorMessages.NotFoundEntity);
                 return Ok(model);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.FetchError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
 
         }
@@ -70,7 +68,7 @@ namespace WeghingSystemCore.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.CreateError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.CreateError);
             }
 
 
@@ -91,7 +89,7 @@ namespace WeghingSystemCore.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.UpdateError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.UpdateError);
             }
 
         }
@@ -108,17 +106,17 @@ namespace WeghingSystemCore.Controllers
 
                 if (model == null)
                 {
-                    return BadRequest(Constants.Messages.NotFoundEntity);
+                    return BadRequest(Constants.ErrorMessages.NotFoundEntity);
                 }
 
                 repository.Delete(model);
 
-                return Accepted(Constants.Messages.DeleteSucess(1));
+                return Accepted(Constants.ErrorMessages.DeleteSucess(1));
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.DeleteError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
         }
 
@@ -131,24 +129,24 @@ namespace WeghingSystemCore.Controllers
             try
             {
                 var arrayIds = ids.Split(",");
-                if (arrayIds.Length == 0) return BadRequest(Constants.Messages.NoEntityOnDelete);
+                if (arrayIds.Length == 0) return BadRequest(Constants.ErrorMessages.NoEntityOnDelete);
 
                 repository.BulkDelete(arrayIds);
 
-                return Ok(Constants.Messages.DeleteSucess(arrayIds.Count()));
+                return Ok(Constants.ErrorMessages.DeleteSucess(arrayIds.Count()));
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.DeleteError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
         }
         private bool validateEntity(BusinessLicense model)
         {
             //var validCode = repository.ValidateName(model);
-            //if (!validCode) ModelState.AddModelError(nameof(BaleType.BaleTypeCode), Constants.Messages.EntityExists("Code"));
+            //if (!validCode) ModelState.AddModelError(nameof(BaleType.BaleTypeCode), Constants.ErrorMessages.EntityExists("Code"));
             //var validName = repository.ValidateName(model);
-            //if (!validName) ModelState.AddModelError(nameof(BaleType.BaleTypeDesc), Constants.Messages.EntityExists("Name"));
+            //if (!validName) ModelState.AddModelError(nameof(BaleType.BaleTypeDesc), Constants.ErrorMessages.EntityExists("Name"));
             return (ModelState.ErrorCount == 0);
         }
         private IActionResult InvalidModelStateResult()

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SysDomain.IRepositories;
 using SysDomain.Models;
+using System;
+using System.Linq;
 using SysUtility;
 using SysUtility.Extensions;
 
@@ -28,17 +26,17 @@ namespace WeghingSystemCore.Controllers
 
         [HttpGet]
         public IActionResult Get([FromQuery] Calibration parameters = null)
-        { 
+        {
             try
-            { 
+            {
                 var model = repository.Get(parameters);
-                if (model == null) return NotFound(Constants.Messages.NotFoundEntity);
-                return Ok(model.ToList().Select(a => { a.CalibrationTypeDesc = (a.CalibrationType?.CalibrationTypeDesc); a.CalibrationType = null; return a; } ));
+                if (model == null) return NotFound(Constants.ErrorMessages.NotFoundEntity);
+                return Ok(model.ToList().Select(a => { a.CalibrationTypeDesc = (a.CalibrationType?.CalibrationTypeDesc); a.CalibrationType = null; return a; }));
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.FetchError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
 
@@ -48,14 +46,14 @@ namespace WeghingSystemCore.Controllers
         {
             try
             {
-                var model = repository.GetById(id);
-                if (model == null) return NotFound(Constants.Messages.NotFoundEntity);
+                var model = repository.Get(new Calibration() { CalibrationId = id });
+                if (model == null) return NotFound(Constants.ErrorMessages.NotFoundEntity);
                 return Ok(model);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.FetchError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
 
         }
@@ -65,10 +63,19 @@ namespace WeghingSystemCore.Controllers
         public IActionResult LastLog(long id)
         {
             var model = repository.GetLastLog(id);
-            if (model == null) return NotFound(Constants.Messages.NotFoundEntity);
+            if (model == null) return NotFound(Constants.ErrorMessages.NotFoundEntity);
             return Ok(model);
         }
-       
+
+        [Route("{id}/confirm")]
+        public IActionResult Confirm(Calibration model)
+        {
+
+            if (model == null) return NotFound(Constants.ErrorMessages.NotFoundEntity);
+            model = repository.Confirm(model);
+            return Ok(model);
+        }
+
         [HttpPost]
         public IActionResult Post([FromBody] Calibration model)
         {
@@ -81,27 +88,47 @@ namespace WeghingSystemCore.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.CreateError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.CreateError);
             }
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(StatusCodes), StatusCodes.Status400BadRequest)]
-        public IActionResult Put([FromBody] Calibration model)
+        public IActionResult Put(long id, [FromBody] Calibration model)
         {
             try
             {
                 if (!ModelState.IsValid) return InvalidModelStateResult();
                 if (!validateEntity(model)) return InvalidModelStateResult();
-                if (repository.Get().Count(a => a.CalibrationId.Equals(model.CalibrationId)) == 0) return NotFound(Constants.Messages.NotFoundEntity);
+                if (repository.Get().Count(a => a.CalibrationId.Equals(model.CalibrationId)) == 0) return NotFound(Constants.ErrorMessages.NotFoundEntity);
                 return Accepted(repository.Update(model));
 
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.UpdateError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.UpdateError);
+            }
+
+        }
+
+
+        [HttpPut("{id}/lastlog")]
+        public IActionResult UpdateLastLog(long id, [FromBody] Calibration model)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return InvalidModelStateResult();
+                if (!validateEntity(model)) return InvalidModelStateResult();
+                if (repository.Get().Count(a => a.CalibrationId.Equals(model.CalibrationId)) == 0) return NotFound(Constants.ErrorMessages.NotFoundEntity);
+                return Accepted(repository.UpdateLastLog(model));
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.UpdateError);
             }
 
         }
@@ -113,18 +140,18 @@ namespace WeghingSystemCore.Controllers
         {
             try
             {
-                var model = repository.GetById(id);
+                var model = repository.Get(new Calibration() { CalibrationId = id }).FirstOrDefault();
                 if (model == null)
                 {
-                    return BadRequest(Constants.Messages.NotFoundEntity);
+                    return BadRequest(Constants.ErrorMessages.NotFoundEntity);
                 }
                 repository.Delete(model);
-                return Accepted(Constants.Messages.DeleteSucess(1));
+                return Accepted(Constants.ErrorMessages.DeleteSucess(1));
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.DeleteError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
         }
 
@@ -136,17 +163,17 @@ namespace WeghingSystemCore.Controllers
             try
             {
                 var arrayIds = ids.Split(",");
-                if (arrayIds.Length == 0) return BadRequest(Constants.Messages.NoEntityOnDelete);
+                if (arrayIds.Length == 0) return BadRequest(Constants.ErrorMessages.NoEntityOnDelete);
 
                 repository.BulkDelete(arrayIds);
 
-                return Ok(Constants.Messages.DeleteSucess(arrayIds.Count()));
+                return Ok(Constants.ErrorMessages.DeleteSucess(arrayIds.Count()));
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
                 logger.LogDebug(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, Constants.Messages.DeleteError);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
         }
 
@@ -154,7 +181,7 @@ namespace WeghingSystemCore.Controllers
         {
             return (ModelState.ErrorCount == 0);
         }
-       
+
         private IActionResult InvalidModelStateResult()
         {
             var jsonModelState = ModelState.ToJson();

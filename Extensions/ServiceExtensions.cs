@@ -2,13 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WeghingSystemCore.Extensions
 {
-    public  static class ServiceExtensions
+    public static class ServiceExtensions
     {
         public static void ConfigureAntiForgery(this IServiceCollection services)
         {

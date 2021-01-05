@@ -1,0 +1,58 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using SysDomain.IRepositories;
+using SysDomain.Models;
+using System;
+using SysUtility;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace WeghingSystemCore.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ReportingController : ControllerBase
+    {
+        private readonly IReportingRepository repository;
+        private readonly ILogger<BalesController> logger;
+        public ReportingController(ILogger<BalesController> logger, IReportingRepository repository)
+        {
+            this.repository = repository;
+            this.logger = logger;
+        }
+
+
+        [Route("[action]")]
+        public IActionResult ReportDataSet([FromQuery] ReportParameters reportParameters)
+        {
+            try
+            {
+                var result = repository.FillReportDataSet(reportParameters);
+             
+                return Accepted(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.UpdateError);
+            }
+        }
+
+        [Route("[action]")]
+        public IActionResult SetReportDaysWeekNum()
+        {
+            try
+            {
+                repository.SetReportDaysWeekNum();
+
+                return Accepted("SETTING WEEK NUM COMPLETE");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.UpdateError);
+            }
+        }
+    }
+}

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SysDomain.IRepositories;
 using SysDomain.Models;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,7 +41,7 @@ namespace WeghingSystemCore.Controllers
 
         // PUT api/<ReferenceNumberController>/5
         [HttpPut("{id}")]
-        public void Put( [FromBody] ReferenceNumber model)
+        public void Put([FromBody] ReferenceNumber model)
         {
             repository.Update(model);
         }
