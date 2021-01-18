@@ -10,7 +10,7 @@ using SysUtility.Extensions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WeghingSystemCore.Controllers
+namespace TSISystemCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -38,7 +38,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
@@ -54,7 +54,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
@@ -65,20 +65,21 @@ namespace WeghingSystemCore.Controllers
         {
             try
             {
-                model.DateTimeIn = model.IsOfflineIn ? model.DateTimeIn : DateTime.Now;
+                //NOTE: VALIDATION CALLED SEPERATELY BEFORE CHECKING WEIGHT STABILITY
+                //model.DateTimeIn = model.IsOfflineIn ? model.DateTimeIn : DateTime.Now;
 
-                if (!ModelState.IsValid) return InvalidModelStateResult();
-                var modelStateDic = transValRepository.ValidateInyard(model);
-                if (modelStateDic.Count > 0)
-                {
-                    ModelState.AddModelErrors(modelStateDic);
-                    return InvalidModelStateResult();
-                }
+                //if (!ModelState.IsValid) return InvalidModelStateResult();
+                //var modelStateDic = transValRepository.ValidateInyard(model);
+                //if (modelStateDic.Count > 0)
+                //{
+                //    ModelState.AddModelErrors(modelStateDic);
+                //    return InvalidModelStateResult();
+                //}
                 return Accepted(repository.WeighIn(model));
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.CreateError);
             }
         }
@@ -91,15 +92,15 @@ namespace WeghingSystemCore.Controllers
             {
                 if (repository.Get().Count(a => a.InyardId == model.InyardId) == 0) return NotFound("Selected Inyard Not found found");
 
-                model.DateTimeOut = model.IsOfflineOut ? model.DateTimeOut : DateTime.Now;
+                //model.DateTimeOut = model.IsOfflineOut ? model.DateTimeOut : DateTime.Now;
 
-                if (!ModelState.IsValid) return InvalidModelStateResult();
-                var modelStateDic = transValRepository.ValidateInyard(model);
-                if (modelStateDic.Count > 0)
-                {
-                    ModelState.AddModelErrors(transValRepository.ValidateInyard(model));
-                    return InvalidModelStateResult();
-                }
+                //if (!ModelState.IsValid) return InvalidModelStateResult();
+                //var modelStateDic = transValRepository.ValidateInyard(model);
+                //if (modelStateDic.Count > 0)
+                //{
+                //    ModelState.AddModelErrors(transValRepository.ValidateInyard(model));
+                //    return InvalidModelStateResult();
+                //}
 
                 if (model.TransactionTypeCode == "I")
                 {
@@ -114,7 +115,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.CreateError);
             }
         }
@@ -140,7 +141,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
         }
@@ -161,12 +162,11 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 logger.LogDebug(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
         }
-
 
 
         [HttpPut("{id}")]
@@ -188,7 +188,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.CreateError);
             }
         }
@@ -231,6 +231,29 @@ namespace WeghingSystemCore.Controllers
             return UnprocessableEntity(jsonModelState);
         }
 
+        [HttpPost]
+        [Route("[action]")]
+        public IActionResult Validate([FromBody] Inyard model)
+        {
+            try
+            {
+                model.DateTimeIn = model.IsOfflineIn ? model.DateTimeIn : DateTime.Now;
+
+                if (!ModelState.IsValid) return InvalidModelStateResult();
+                var modelStateDic = transValRepository.ValidateInyard(model);
+                if (modelStateDic.Count > 0)
+                {
+                    ModelState.AddModelErrors(modelStateDic);
+                    return InvalidModelStateResult();
+                }
+                return Accepted(model);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.GetExceptionMessage());
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.CreateError);
+            }
+        }
 
     }
 }

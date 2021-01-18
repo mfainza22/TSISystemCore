@@ -4,14 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using SysDomain;
 using SysUtility.Config;
 using SysUtility.Config.Models;
 using SysUtility.Helpers;
-using WeghingSystemCore.Extensions;
+using SysUtility.Logging;
+using TSISystemCore.Extensions;
 
-namespace WeghingSystemCore
+namespace TSISystemCore
 {
     public class Startup
     {
@@ -26,6 +28,9 @@ namespace WeghingSystemCore
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.RegisterTraceSourceService(Configuration);
+
             services.AllowCORS();
 
             services.ConfigureWritable<AppConfig>(Configuration.GetSection("ApplicationSettings"), defaultValues: AppConfig.GetDefault());
@@ -35,6 +40,7 @@ namespace WeghingSystemCore
             services.AddRepositoryService();
 
             services.DisableAutoValidate();
+
 
             /**
              * HAS ERROR
@@ -60,6 +66,7 @@ namespace WeghingSystemCore
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -67,13 +74,17 @@ namespace WeghingSystemCore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            } else
+            {
+                app.UseHsts();
             }
 
             CustomCultureHelpers.SetCustomCulture();
 
+            app.UseHttpsRedirection();
+
             app.UseCors();
 
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

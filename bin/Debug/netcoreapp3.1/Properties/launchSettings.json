@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "api/balingstations/selected",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -8,10 +8,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using SysUtility;
 using SysUtility.Extensions;
-using WeghingSystemCore.Extensions;
+using TSISystemCore.Extensions;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WeghingSystemCore.Controllers
+namespace TSISystemCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -35,7 +35,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
@@ -51,7 +51,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
 
@@ -76,7 +76,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.CreateError);
             }
 
@@ -104,7 +104,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.UpdateError);
             }
 
@@ -131,7 +131,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
         }
@@ -153,7 +153,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
         }
@@ -184,7 +184,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }

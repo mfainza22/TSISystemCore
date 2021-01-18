@@ -6,10 +6,11 @@ using SysDomain.Models;
 using System;
 using System.Linq;
 using SysUtility;
+using SysUtility.Extensions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WeghingSystemCore.Controllers
+namespace TSISystemCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -32,7 +33,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
@@ -47,7 +48,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }

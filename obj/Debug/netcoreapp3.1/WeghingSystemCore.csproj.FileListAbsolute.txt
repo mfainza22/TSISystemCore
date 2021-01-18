@@ -396,3 +396,8 @@ D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp
 D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp3.1\WeghingSystemCore.dll
 D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp3.1\WeghingSystemCore.pdb
 D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\obj\Debug\netcoreapp3.1\WeghingSystemCore.genruntimeconfig.cache
+D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\bin\Debug\netcoreapp3.1\Google.Apis.dll
+D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\bin\Debug\netcoreapp3.1\Google.Apis.Auth.PlatformServices.dll
+D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\bin\Debug\netcoreapp3.1\Google.Apis.Auth.dll
+D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\bin\Debug\netcoreapp3.1\Google.Apis.Core.dll
+D:\dir\tsi\UPPC\Phase 4\WeghingSystemCore\WeghingSystemCore\bin\Debug\netcoreapp3.1\Google.Apis.Drive.v3.dll

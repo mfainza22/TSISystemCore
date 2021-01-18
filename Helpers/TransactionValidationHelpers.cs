@@ -1,4 +1,4 @@
-﻿namespace WeghingSystemCore.Helpers
+﻿namespace TSISystemCore.Helpers
 {
     public static class TransactionValidationHelpers
     {

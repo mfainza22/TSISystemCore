@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SysUtility.Extensions;
 
-namespace WeghingSystemCore.Extensions
+namespace TSISystemCore.Extensions
 {
     public static class ControllerBaseExtensions
     {

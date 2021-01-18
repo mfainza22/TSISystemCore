@@ -9,7 +9,7 @@ using SysUtility;
 using SysUtility.Extensions;
 
 
-namespace WeghingSystemCore.Controllers
+namespace TSISystemCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -33,7 +33,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
@@ -49,7 +49,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
 

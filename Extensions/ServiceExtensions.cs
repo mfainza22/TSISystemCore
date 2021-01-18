@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace WeghingSystemCore.Extensions
+namespace TSISystemCore.Extensions
 {
     public static class ServiceExtensions
     {

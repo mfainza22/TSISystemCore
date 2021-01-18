@@ -1,0 +1,161 @@
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-14T17:08:19.4304265Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-14T17:08:19.4473675Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-14T17:08:19.4569191Z
+WeighingSystemCore.Controllers.WeatherForecastController Information: 0 : SAMPLE
+    DateTime=2021-01-14T17:08:20.1889278Z
+WeighingSystemCore.Controllers.BalingStationsController Error: 0 : a
+    DateTime=2021-01-14T17:08:24.7163254Z
+WeighingSystemCore.Controllers.BalingStationsController Critical: 0 : a
+    DateTime=2021-01-14T17:08:24.7295932Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-14T17:16:23.1864228Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-14T17:16:23.2023081Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-14T17:16:23.2130474Z
+WeighingSystemCore.Controllers.WeatherForecastController Information: 0 : SAMPLE
+    DateTime=2021-01-14T17:16:24.0597252Z
+WeighingSystemCore.Controllers.BalingStationsController Error: 0 : a
+    DateTime=2021-01-14T17:16:26.0805832Z
+WeighingSystemCore.Controllers.BalingStationsController Critical: 0 : a
+    DateTime=2021-01-14T17:16:26.0921536Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-14T17:18:26.9577161Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-14T17:18:26.9738223Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-14T17:18:26.9848213Z
+WeighingSystemCore.Controllers.WeatherForecastController Information: 0 : SAMPLE
+    DateTime=2021-01-14T17:18:27.9548682Z
+WeighingSystemCore.Controllers.BalingStationsController Error: 0 : a
+    DateTime=2021-01-14T17:18:28.5552934Z
+WeighingSystemCore.Controllers.BalingStationsController Critical: 0 : a
+    DateTime=2021-01-14T17:18:28.5672385Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T02:37:32.5152201Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T02:37:32.5267433Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T02:37:32.5332907Z
+WeighingSystemCore.Controllers.WeatherForecastController Information: 0 : SAMPLE
+    DateTime=2021-01-15T02:37:33.0371561Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T02:48:28.0068654Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T02:48:28.0316264Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T02:48:28.0460439Z
+WeighingSystemCore.Controllers.WeatherForecastController Information: 0 : SAMPLE
+    DateTime=2021-01-15T02:48:28.7747024Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T02:59:04.1425187Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T02:59:04.1615465Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T02:59:04.1693875Z
+WeighingSystemCore.Controllers.WeatherForecastController Information: 0 : SAMPLE
+    DateTime=2021-01-15T02:59:04.6957327Z
+SysDomain.Repositories.SaleTransactionRepository Error: 0 : Invalid column name 'DiffMC10'.
+Invalid column name 'DiffMC12'.
+Invalid column name 'UserAccountFullName'.
+    DateTime=2021-01-15T03:00:05.3461466Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T03:09:20.8596445Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T03:09:20.8714570Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T03:09:20.8790559Z
+WeighingSystemCore.Controllers.WeatherForecastController Information: 0 : SAMPLE
+    DateTime=2021-01-15T03:09:21.3332907Z
+SysDomain.Repositories.SaleTransactionRepository Error: 0 : Arithmetic overflow error converting numeric to data type numeric.
+The statement has been terminated.
+    DateTime=2021-01-15T03:09:48.9008830Z
+WeighingSystemCore.Controllers.SaleTransactionsController Error: 0 : Arithmetic overflow error converting numeric to data type numeric.
+The statement has been terminated.
+    DateTime=2021-01-15T03:09:54.8781138Z
+SysDomain.Repositories.SaleTransactionRepository Error: 0 : Cannot insert the value NULL into column 'MC14', table 'UPPC.dbo.ReturnedVehicles'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+    DateTime=2021-01-15T03:13:36.1195249Z
+WeighingSystemCore.Controllers.SaleTransactionsController Error: 0 : Cannot insert the value NULL into column 'MC14', table 'UPPC.dbo.ReturnedVehicles'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+    DateTime=2021-01-15T03:13:47.0741722Z
+WeighingSystemCore.Controllers.BalesController Error: 0 : An error occurred while updating the entries. See the inner exception for details.
+    DateTime=2021-01-15T03:17:44.3335878Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T03:31:27.0022635Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T03:31:27.0155309Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T03:31:27.0234588Z
+WeighingSystemCore.Controllers.WeatherForecastController Information: 0 : SAMPLE
+    DateTime=2021-01-15T03:31:27.6745453Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T03:33:28.7720271Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T03:33:28.7798146Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T03:33:28.7859830Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T03:34:37.1431485Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T03:34:37.1558103Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T03:34:37.1624393Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T03:35:16.4831645Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T03:35:16.4965674Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T03:35:16.5042678Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T07:27:50.3528353Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T07:27:50.3845287Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T07:27:50.4034922Z
+Microsoft.AspNetCore.Hosting.Diagnostics Critical: 6 : Application startup exception
+    DateTime=2021-01-15T07:41:07.0162888Z
+Microsoft.AspNetCore.Hosting.Diagnostics Critical: 6 : Application startup exception
+    DateTime=2021-01-15T07:42:04.5348481Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T07:42:49.0757379Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T07:42:49.0919753Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T07:42:49.1011872Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T07:51:29.6951226Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T07:51:29.7069242Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T07:51:29.7130668Z
+WeighingSystemCore.Controllers.BalesController Error: 0 : The conversion of a datetime2 data type to a datetime data type resulted in an out-of-range value.
+The statement has been terminated.
+    DateTime=2021-01-15T07:56:43.3072301Z
+WeighingSystemCore.Controllers.BalesController Error: 0 : The conversion of a datetime2 data type to a datetime data type resulted in an out-of-range value.
+The statement has been terminated.
+    DateTime=2021-01-15T07:57:45.9620972Z
+WeighingSystemCore.Controllers.BalesController Error: 0 : The conversion of a datetime2 data type to a datetime data type resulted in an out-of-range value.
+The statement has been terminated.
+    DateTime=2021-01-15T07:59:04.2722168Z
+WeighingSystemCore.Controllers.BalesController Error: 0 : The conversion of a datetime2 data type to a datetime data type resulted in an out-of-range value.
+The statement has been terminated.
+    DateTime=2021-01-15T07:59:07.2160869Z
+WeighingSystemCore.Controllers.BalesController Error: 0 : The conversion of a datetime2 data type to a datetime data type resulted in an out-of-range value.
+The statement has been terminated.
+    DateTime=2021-01-15T08:01:19.1534024Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-15T08:06:30.8380225Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-15T08:06:30.8657029Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\UPPC\Phase 4\WeighingSystemCore\WeighingSystemCore
+    DateTime=2021-01-15T08:06:30.8813850Z
+Microsoft.Hosting.Lifetime Information: 0 : Application started. Press Ctrl+C to shut down.
+    DateTime=2021-01-18T06:07:09.9783116Z
+Microsoft.Hosting.Lifetime Information: 0 : Hosting environment: Development
+    DateTime=2021-01-18T06:07:09.9882621Z
+Microsoft.Hosting.Lifetime Information: 0 : Content root path: D:\dir\tsi\TSI SYSTEM\tsi-system\TSISystemCore\TSISystemCore
+    DateTime=2021-01-18T06:07:09.9943232Z

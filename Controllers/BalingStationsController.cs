@@ -10,7 +10,7 @@ using SysUtility.Extensions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WeghingSystemCore.Controllers
+namespace TSISystemCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -30,11 +30,12 @@ namespace WeghingSystemCore.Controllers
             try
             {
                 var model = repository.Get(parameters);
+
                 return Ok(model);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
@@ -51,10 +52,9 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
-
         }
 
         [HttpGet]
@@ -69,7 +69,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
@@ -85,7 +85,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.CreateError);
             }
 
@@ -107,12 +107,11 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.UpdateError);
             }
 
         }
-
 
         [HttpDelete]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
@@ -134,11 +133,10 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
         }
-
 
         [HttpDelete("{name}/{ids}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
@@ -156,7 +154,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 logger.LogDebug(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.DeleteError);
             }
@@ -248,7 +246,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
@@ -264,7 +262,7 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
@@ -280,24 +278,40 @@ namespace WeghingSystemCore.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
 
-
         [HttpPost]
         [Route("[action]")]
-        public IActionResult BackupDatabase([FromBody] bool shrinkDatabase = false)
+        public IActionResult BackupDatabase([FromQuery] bool shrinkDatabase = false)
         {
             try
             {
-                repository.BackupDatabase(shrinkDatabase);
-                return Ok("Backup Complete");
+                var fileName =  repository.BackupDatabase(shrinkDatabase);
+                if (String.IsNullOrEmpty(fileName)) return StatusCode(StatusCodes.Status400BadRequest, "Backup Failed");
+                return Ok(fileName);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
+                logger.LogError(ex.GetExceptionMessage());
+                return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
+            }
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public IActionResult UploadBackupFile([FromQuery] string fileName)
+        {
+            try
+            {
+                repository.UploadBackupFile(fileName);
+                return Ok("Backup Uploaded Successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.GetExceptionMessage());
                 return StatusCode(StatusCodes.Status500InternalServerError, Constants.ErrorMessages.FetchError);
             }
         }
